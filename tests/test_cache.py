@@ -159,3 +159,58 @@ def test_check_paper_reading_missing_metadata(tmp_path):
         f.write(b"%PDF")
     result = check_cache("paper-reading", url, "paper.pdf", cache_root=str(tmp_path / "cache"), ttl_days=7)
     assert result is None
+
+
+def test_write_cache_from_stdin(tmp_path):
+    """write_cache stores stdin content at the correct path."""
+    from scripts.cache import write_cache
+    data = '[{"title": "test"}]'
+    path = write_cache(
+        "daily-briefing", "2026-03-24", "raw/huggingface_papers.json",
+        content=data, cache_root=str(tmp_path / "cache")
+    )
+    assert os.path.exists(path)
+    with open(path) as f:
+        assert json.load(f) == [{"title": "test"}]
+
+
+def test_write_cache_creates_dirs(tmp_path):
+    """write_cache creates intermediate directories."""
+    from scripts.cache import write_cache
+    path = write_cache(
+        "daily-briefing", "2026-03-24", "raw/deep/nested.json",
+        content="{}", cache_root=str(tmp_path / "cache")
+    )
+    assert os.path.exists(path)
+
+
+def test_write_cache_from_file(tmp_path):
+    """write_cache with from_file copies a binary file into cache."""
+    from scripts.cache import write_cache
+    src = tmp_path / "source.pdf"
+    src.write_bytes(b"%PDF-1.4 fake content")
+    path = write_cache(
+        "paper-reading", "https://arxiv.org/abs/2401.12345", "paper.pdf",
+        from_file=str(src), cache_root=str(tmp_path / "cache")
+    )
+    assert os.path.exists(path)
+    with open(path, "rb") as f:
+        assert f.read() == b"%PDF-1.4 fake content"
+
+
+def test_write_cache_paper_creates_metadata(tmp_path):
+    """write_cache for paper-reading auto-creates metadata.json."""
+    from scripts.cache import write_cache, resolve_cache_path
+    src = tmp_path / "source.pdf"
+    src.write_bytes(b"%PDF")
+    url = "https://arxiv.org/abs/2401.12345"
+    write_cache(
+        "paper-reading", url, "paper.pdf",
+        from_file=str(src), cache_root=str(tmp_path / "cache")
+    )
+    meta_path = resolve_cache_path("paper-reading", url, "metadata.json", cache_root=str(tmp_path / "cache"))
+    assert os.path.exists(meta_path)
+    with open(meta_path) as f:
+        meta = json.load(f)
+    assert meta["url"] == url
+    assert "fetched_at" in meta

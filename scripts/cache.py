@@ -87,3 +87,39 @@ def check_cache(skill: str, key: str, filename: str, cache_root: str = "cache", 
             return None
 
     return path
+
+
+def write_cache(
+    skill: str, key: str, filename: str,
+    content: str | None = None, from_file: str | None = None,
+    cache_root: str = "cache"
+) -> str:
+    """Write data to cache. Either content (str) or from_file (path) must be provided.
+
+    For paper-reading with from_file, also creates metadata.json automatically.
+    Returns the cache file path.
+    """
+    path = resolve_cache_path(skill, key, filename, cache_root=cache_root)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+
+    if from_file is not None:
+        shutil.copy2(from_file, path)
+    elif content is not None:
+        with open(path, "w") as f:
+            f.write(content)
+    else:
+        raise ValueError("Either content or from_file must be provided")
+
+    # Auto-create metadata.json for paper-reading when writing paper.pdf
+    if skill == "paper-reading" and filename == "paper.pdf":
+        meta_path = resolve_cache_path(skill, key, "metadata.json", cache_root=cache_root)
+        meta = {
+            "url": key,
+            "url_hash": url_hash(key),
+            "title": "",
+            "fetched_at": datetime.now(timezone.utc).isoformat(),
+        }
+        with open(meta_path, "w") as f:
+            json.dump(meta, f, indent=2)
+
+    return path
