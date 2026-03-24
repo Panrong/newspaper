@@ -44,7 +44,7 @@ def parse_papers(api_response: list[dict]) -> list[dict]:
             {
                 "title": paper.get("title", "Untitled"),
                 "body": "\n\n".join(body_parts),
-                "url": f"https://huggingface.co/papers/{paper['id']}",
+                "url": f"https://huggingface.co/papers/{paper.get('id', '')}",
                 "source_name": "HuggingFace Daily Papers",
                 "date": date_str,
                 "item_type": "paper",

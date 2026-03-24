@@ -1,9 +1,6 @@
 # tests/test_resolve_and_download.py
 import os
-import tempfile
 from unittest.mock import patch, MagicMock
-
-FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "fixtures")
 
 
 def test_resolve_arxiv_abs():

@@ -32,9 +32,6 @@ Create a new `.py` file in this directory following the interface above. The
 
 ## Optional Flags
 
-Source scripts may accept flags for configuration. For example:
-
-```bash
-python scripts/sources/smol_news.py --method rss   # default
-python scripts/sources/smol_news.py --method web    # scrape website
-```
+Source scripts may accept optional flags for configuration (e.g., `--method`
+to select a fetch strategy). This is not required — the default behavior
+should work with no flags.
