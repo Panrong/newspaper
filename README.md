@@ -12,7 +12,16 @@ A Claude Code / OpenClaw plugin for daily AI news briefing and paper reading.
 
 ```bash
 pip install -e .
+```
+
+**Claude Code:**
+```bash
 claude plugins add /path/to/newspaper
+```
+
+**OpenClaw:**
+```bash
+opencode plugins add /path/to/newspaper
 ```
 
 ## Usage
