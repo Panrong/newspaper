@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>AINews</title>
+    <description>Weekday recaps of top News for AI Engineers</description>
+    <link>https://news.smol.ai/</link>
+    <language>en-us</language>
+    <item>
+      <title>not much happened today</title>
+      <link>https://news.smol.ai/issues/26-03-20-not-much/</link>
+      <guid isPermaLink="true">https://news.smol.ai/issues/26-03-20-not-much/</guid>
+      <description>**Cursor&#x27;s Composer 2**, built on **Kimi K2.5**, sparked discussion over model attribution and licensing, highlighting a shift toward post-trained derivatives of open-source models with domain-specific fine-tuning and reinforcement learning. **Claude Code** is expanding into third-party tools like **T3 Code** and communication channels such as Telegram and Discord, while **LangChain** is evolving from orchestration to multi-agent products with offerings like **Deep Agents/Open SWE** and **LangSmith Fleet**. The discourse emphasizes the importance of clear base-model attribution, licensing compliance, and product differentiation through fine-tuning and user experience.</description>
+      <pubDate>Fri, 20 Mar 2026 05:44:39 GMT</pubDate>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;a quiet day.&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;AI News for 3/19/2026-3/20/2026. We checked 12 subreddits, &lt;a href=&quot;https://twitter.com/i/lists/1585430245762441216&quot;&gt;544 Twitters&lt;/a&gt; and no further Discords. &lt;a href=&quot;https://news.smol.ai/&quot;&gt;AINews&#x27; website&lt;/a&gt; lets you search all past issues. As a reminder, &lt;a href=&quot;https://www.latent.space/p/2026&quot;&gt;AINews is now a section of Latent Space&lt;/a&gt;. You can &lt;a href=&quot;https://support.substack.com/hc/en-us/articles/8914938285204-How-do-I-subscribe-to-o</content:encoded>
+      <category>cursor</category>
+      <category>kimi</category>
+      <category>fireworks</category>
+      <category>anthropic</category>
+      <category>langchain</category>
+      <category>kimi-k2.5</category>
+      <category>claude-code</category>
+      <category>clementdelangue</category>
+      <category>leerob</category>
+      <category>amanrsanger</category>
+      <category>yuchenj_uw</category>
+      <category>kimmonismus</category>
+      <category>model-attribution</category>
+      <category>fine-tuning</category>
+      <category>reinforcement-learning</category>
+      <category>open-source</category>
+      <category>agent-products</category>
+      <category>model-licensing</category>
+      <category>software-integration</category>
+      <category>product-differentiation</category>
+    </item>
+    <item>
+      <title>not much happened today</title>
+      <link>https://news.smol.ai/issues/26-03-19-not-much/</link>
+      <guid isPermaLink="true">https://news.smol.ai/issues/26-03-19-not-much/</guid>
+      <description>**Cursor** launched **Composer 2**, a frontier-class coding model with major cost reductions and strong benchmark scores like **61.3 on CursorBench** and **73.7 on SWE-bench Multilingual**. The model was improved via a **first continued pretraining run** feeding into reinforcement learning, trained across **3–4 clusters worldwide** by a **~40-person** team. **OpenAI** acquired **Astral**, the team behind Python tools **uv, ruff, and ty**, strengthening its developer platform. **Anthropic** expanded **Claude Code** with messaging app channels for persistent developer workflows. The focus in AI agents is shifting from single agents to managed fleets and runtimes, with **LangChain** launching **LangSmith Fleet** for enterprise agent management emphasizing **agent identity**, **credential management**, and auditability. Other launches include **Cognition&#x27;s teams of Devins**, **AgentUI** by **lvwerra**, and discussions on agent runtimes with features like **checkpointing** and **rollback**. Security and permissions are emerging as critical constraints in agent system design.</description>
+      <pubDate>Thu, 19 Mar 2026 05:44:39 GMT</pubDate>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;a quiet day.&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;AI News for 3/18/2026-3/19/2026. We checked 12 subreddits, &lt;a href=&quot;https://twitter.com/i/lists/1585430245762441216&quot;&gt;544 Twitters&lt;/a&gt; and no further Discords. &lt;a href=&quot;https://news.smol.ai/&quot;&gt;AINews&#x27; website&lt;/a&gt; lets you search all past issues. As a reminder, &lt;a href=&quot;https://www.latent.space/p/2026&quot;&gt;AINews is now a section of Latent Space&lt;/a&gt;. You can &lt;a href=&quot;https://support.substack.com/hc/en-us/articles/8914938285204-How-do-I-subscribe-to-o</content:encoded>
+      <category>cursor</category>
+      <category>openai</category>
+      <category>anthropic</category>
+      <category>langchain</category>
+      <category>cognition</category>
+      <category>claude-code</category>
+      <category>composer-2</category>
+      <category>kimmonismus</category>
+      <category>mntruell</category>
+      <category>theo</category>
+      <category>ellev3n11</category>
+      <category>amanrsanger</category>
+      <category>charliermarsh</category>
+      <category>gdb</category>
+      <category>yuchenj_uw</category>
+      <category>neilhtennek</category>
+      <category>simonw</category>
+      <category>yuvalinthedeep</category>
+      <category>lvwerra</category>
+      <category>hrishioa</category>
+      <category>reinforcement-learning</category>
+      <category>developer-tooling</category>
+      <category>agent-systems</category>
+      <category>agent-runtimes</category>
+      <category>security</category>
+      <category>credential-management</category>
+      <category>multi-agent-systems</category>
+      <category>model-training</category>
+      <category>benchmarking</category>
+      <category>software-engineering</category>
+      <category>enterprise-ai</category>
+    </item>
+    <item>
+      <title>MiniMax 2.7: GLM-5 at 1/3 cost SOTA Open Model</title>
+      <link>https://news.smol.ai/issues/26-03-18-not-much/</link>
+      <guid isPermaLink="true">https://news.smol.ai/issues/26-03-18-not-much/</guid>
+      <description>**MiniMax M2.7** is the headline model release, described as a &quot;self-evolving agent&quot; with strong performance metrics including **56.22% on SWE-Pro**, **57.0% on Terminal Bench 2**, and parity with **Sonnet 4.6**. It features recursive self-improvement in skills, memory, and architecture. **Artificial Analysis** places M2.7 on the cost/performance frontier with an Intelligence Index score of **50**, matching **GLM-5 (Reasoning)** but at a fraction of the cost. Distribution is available via platforms like **Ollama cloud** and **OpenRouter**. **Xiaomi’s MiMo-V2-Pro** is noted as a serious Chinese API-only reasoning model with a score of **49** on the Intelligence Index and favorable token efficiency. **Cartesia’s Mamba-3** is highlighted as an SSM optimized for inference-heavy use, with early reactions focusing on hybrid transformer architectures like **Qwen3.5** and **Kimi Linear**. The report emphasizes a shift from prompting to harness engineering, where the execution environment and agent harnesses, including skills and MCP, are becoming key differentiators in AI system design. This includes discussions on tools, repo legibility, constraints, and feedback loops, with mentions of **DSPy** and **GPT-5.4 mini** as important components in this evolving landscape.</description>
+      <pubDate>Wed, 18 Mar 2026 05:44:39 GMT</pubDate>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;Congrats MiniMax!&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;AI News for 3/18/2026-3/19/2026. We checked 12 subreddits, &lt;a href=&quot;https://twitter.com/i/lists/1585430245762441216&quot;&gt;544 Twitters&lt;/a&gt; and no further Discords. &lt;a href=&quot;https://news.smol.ai/&quot;&gt;AINews&#x27; website&lt;/a&gt; lets you search all past issues. As a reminder, &lt;a href=&quot;https://www.latent.space/p/2026&quot;&gt;AINews is now a section of Latent Space&lt;/a&gt;. You can &lt;a href=&quot;https://support.substack.com/hc/en-us/articles/8914938285204-How-do-I-subscribe</content:encoded>
+      <category>minimax</category>
+      <category>xiaomi</category>
+      <category>artificial-analysis</category>
+      <category>ollama</category>
+      <category>trae</category>
+      <category>yupp</category>
+      <category>openrouter</category>
+      <category>vercel</category>
+      <category>zo</category>
+      <category>opencode</category>
+      <category>kilocode</category>
+      <category>cartesia</category>
+      <category>minimax-m2.7</category>
+      <category>sonnet-4.6</category>
+      <category>glm-5</category>
+      <category>mimo-v2-pro</category>
+      <category>mamba-3</category>
+      <category>qwen-3.5</category>
+      <category>kimi-k2.5</category>
+      <category>gpt-5.4-mini</category>
+      <category>self-evolving-agents</category>
+      <category>reasoning</category>
+      <category>cost-efficiency</category>
+      <category>token-efficiency</category>
+      <category>hybrid-architecture</category>
+      <category>harness-engineering</category>
+      <category>agent-harnesses</category>
+      <category>skills</category>
+      <category>memory-optimization</category>
+      <category>architecture</category>
+      <category>feedback-loops</category>
+      <category>api</category>
+      <category>inference</category>
+      <category>execution-environment</category>
+    </item>
+  </channel>
+</rss>
