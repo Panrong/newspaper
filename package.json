@@ -1,0 +1,6 @@
+{
+  "name": "newspaper",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Daily AI news briefing and paper reading skills for Claude Code and OpenClaw"
+}
