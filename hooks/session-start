@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Inject newspaper skill descriptions into the session context.
+set -e
+
+PLUGIN_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+
+# Read skill descriptions from SKILL.md frontmatter
+NEWS_DESC=""
+PAPER_DESC=""
+
+if [ -f "$PLUGIN_ROOT/skills/daily-briefing/SKILL.md" ]; then
+  NEWS_DESC=$(sed -n 's/^description: //p' "$PLUGIN_ROOT/skills/daily-briefing/SKILL.md" | head -1)
+fi
+
+if [ -f "$PLUGIN_ROOT/skills/paper-reading/SKILL.md" ]; then
+  PAPER_DESC=$(sed -n 's/^description: //p' "$PLUGIN_ROOT/skills/paper-reading/SKILL.md" | head -1)
+fi
+
+CONTEXT="The following newspaper skills are available:
+- daily-briefing: ${NEWS_DESC}
+- paper-reading: ${PAPER_DESC}"
+
+# Escape for JSON
+ESCAPED=$(echo "$CONTEXT" | python3 -c "import sys,json; print(json.dumps(sys.stdin.read()))")
+
+cat <<EOF
+{
+  "hookResponse": {
+    "additionalContext": ${ESCAPED}
+  }
+}
+EOF
