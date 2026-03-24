@@ -1,0 +1,106 @@
+[
+  {
+    "paper": {
+      "id": "2603.21489",
+      "title": "Effective Strategies for Asynchronous Software Engineering Agents",
+      "summary": "AI agents have become increasingly capable at isolated software engineering (SWE) tasks such as resolving issues on Github. Yet long-horizon tasks involving multiple interdependent subtasks still pose challenges both with respect to accuracy, and with respect to timely completion. A natural approach to solving these long-horizon tasks in a timely manner is asynchronous multi-agent collaboration, where multiple agents work on different parts of the task at the same time. But effective application of multi-agent systems has proven surprisingly difficult: concurrent edits by multiple agents interfere with each other, dependencies are difficult to synchronize, and combining partial progress into a coherent whole is challenging. On the other hand, human developers have long relied on mature collaboration infrastructure to manage these challenges in large software projects. Inspired by these collaboration primitives, we introduce Centralized Asynchronous Isolated Delegation (CAID), a structured multi-agent coordination paradigm grounded in three core SWE primitives: centralized task delegation, asynchronous execution, and isolated workspaces.",
+      "authors": [
+        {"name": "Jiayi Geng", "hidden": false},
+        {"name": "Graham Neubig", "hidden": false}
+      ],
+      "publishedAt": "2026-03-23T02:26:35.000Z",
+      "ai_summary": "Multi-agent collaboration framework using centralized task delegation and isolated workspaces improves software engineering accuracy.",
+      "ai_keywords": [
+        "multi-agent collaboration",
+        "software engineering",
+        "task delegation",
+        "asynchronous execution",
+        "isolated workspaces"
+      ]
+    }
+  },
+  {
+    "paper": {
+      "id": "2603.22117",
+      "title": "On the Direction of RLVR Updates for LLM Reasoning: Identification and Exploitation",
+      "summary": "Reinforcement learning with verifiable rewards (RLVR) has substantially improved the reasoning capabilities of large language models. While existing analyses identify that RLVR-induced changes are sparse, they primarily focus on the magnitude of these updates, largely overlooking their direction. In this work, we argue that the direction of updates is a more critical lens for understanding RLVR's effects, which can be captured by the signed, token-level log probability difference between the base and final RLVR models.",
+      "authors": [
+        {"name": "Kexin Huang", "hidden": false},
+        {"name": "Haoming Meng", "hidden": false},
+        {"name": "Junkang Wu", "hidden": false}
+      ],
+      "publishedAt": "2026-03-23T15:42:24.000Z",
+      "ai_summary": "Direction of RLVR updates is more informative than magnitude for improving LLM reasoning.",
+      "ai_keywords": [
+        "reinforcement learning with verifiable rewards",
+        "language models",
+        "token-level log probability difference",
+        "test-time extrapolation",
+        "training-time reweighting"
+      ]
+    }
+  },
+  {
+    "paper": {
+      "id": "2603.22286",
+      "title": "WorldCache: Content-Aware Caching for Accelerated Video World Models",
+      "summary": "Diffusion Transformers (DiTs) power high-fidelity video world models but remain computationally expensive due to sequential denoising and costly spatio-temporal attention. Training-free feature caching accelerates inference by reusing intermediate activations across denoising steps; however, existing methods largely rely on a Zero-Order Hold assumption. We propose WorldCache, a Perception-Constrained Dynamical Caching framework that improves both when and how to reuse features.",
+      "authors": [
+        {"name": "Umair Nawaz", "hidden": false},
+        {"name": "Ahmed Heakl", "hidden": false},
+        {"name": "Ufaq Khan", "hidden": false}
+      ],
+      "publishedAt": "2026-03-23T17:59:54.000Z",
+      "ai_summary": "Motion-adaptive caching framework achieves 2.3x inference speedup for video world models while preserving quality.",
+      "ai_keywords": [
+        "Diffusion Transformers",
+        "video world models",
+        "feature caching",
+        "motion-adaptive thresholds",
+        "phase-aware threshold scheduling"
+      ]
+    }
+  },
+  {
+    "paper": {
+      "id": "2603.22053",
+      "title": "AnimalCLAP: Taxonomy-Aware Language-Audio Pretraining for Species Recognition and Trait Inference",
+      "summary": "Animal vocalizations provide crucial insights for wildlife assessment, particularly in complex environments such as forests, aiding species identification and ecological monitoring. Recent advances in deep learning have enabled automatic species classification from their vocalizations. However, classifying species unseen during training remains challenging. We introduce AnimalCLAP, a taxonomy-aware language-audio framework comprising a new dataset and model that incorporate hierarchical biological information.",
+      "authors": [
+        {"name": "Risa Shinoda", "hidden": false},
+        {"name": "Kaede Shiohara", "hidden": false},
+        {"name": "Nakamasa Inoue", "hidden": false}
+      ],
+      "publishedAt": "2026-03-23T14:53:02.000Z",
+      "ai_summary": "Taxonomy-aware audio-language model trained on 4,225 hours of animal vocalizations enables zero-shot species recognition.",
+      "ai_keywords": [
+        "taxonomy-aware",
+        "language-audio framework",
+        "hierarchical biological information",
+        "ecological traits",
+        "taxonomic structures"
+      ]
+    }
+  },
+  {
+    "paper": {
+      "id": "2603.18795",
+      "title": "Perceptio: Perception Enhanced Vision Language Models via Spatial Token Generation",
+      "summary": "Large Vision Language Models (LVLMs) excel at semantic understanding but struggle with fine grained spatial grounding, as the model must implicitly infer complex geometry without ever producing a spatial interpretation. We present Perceptio, a perception enhanced LVLM with 2D and 3D spatial reasoning abilities, enabled via explicit semantic segmentation tokens and depth tokens generated directly within the autoregressive sequence.",
+      "authors": [
+        {"name": "Yuchen Li", "hidden": false},
+        {"name": "Amanmeet Garg", "hidden": false},
+        {"name": "Shalini Chaudhuri", "hidden": false}
+      ],
+      "publishedAt": "2026-03-19T11:46:01.000Z",
+      "ai_summary": "Explicit spatial tokens integrated into the LLM autoregressive sequence improve spatial grounding in vision-language models.",
+      "ai_keywords": [
+        "VQVAE",
+        "semantic segmentation tokens",
+        "SAM2",
+        "multi-task co-training",
+        "spatial reasoning"
+      ]
+    }
+  }
+]
