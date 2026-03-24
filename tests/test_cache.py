@@ -68,3 +68,94 @@ def test_resolve_cache_path_paper_reading(tmp_path):
         cache_root=str(tmp_path / "cache")
     )
     assert path == str(tmp_path / "cache" / "paper-reading" / h / "paper.pdf")
+
+
+import time as time_mod
+
+
+def test_check_cache_miss_no_file(tmp_path):
+    """check returns None when file doesn't exist."""
+    from scripts.cache import check_cache
+    result = check_cache(
+        "daily-briefing", "2026-03-24", "raw/huggingface_papers.json",
+        cache_root=str(tmp_path / "cache"), ttl_days=7
+    )
+    assert result is None
+
+
+def test_check_cache_hit_fresh(tmp_path):
+    """check returns path when file exists and is within TTL."""
+    from scripts.cache import check_cache, resolve_cache_path
+    path = resolve_cache_path(
+        "daily-briefing", "2026-03-24", "raw/huggingface_papers.json",
+        cache_root=str(tmp_path / "cache")
+    )
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w") as f:
+        f.write("[]")
+    result = check_cache(
+        "daily-briefing", "2026-03-24", "raw/huggingface_papers.json",
+        cache_root=str(tmp_path / "cache"), ttl_days=7
+    )
+    assert result == path
+
+
+def test_check_cache_miss_expired(tmp_path):
+    """check returns None when file exists but is expired."""
+    from scripts.cache import check_cache, resolve_cache_path
+    path = resolve_cache_path(
+        "daily-briefing", "2026-03-24", "raw/huggingface_papers.json",
+        cache_root=str(tmp_path / "cache")
+    )
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w") as f:
+        f.write("[]")
+    old_time = time_mod.time() - (8 * 86400)
+    os.utime(path, (old_time, old_time))
+    result = check_cache(
+        "daily-briefing", "2026-03-24", "raw/huggingface_papers.json",
+        cache_root=str(tmp_path / "cache"), ttl_days=7
+    )
+    assert result is None
+
+
+def test_check_paper_reading_verifies_url(tmp_path):
+    """check for paper-reading verifies URL in metadata.json matches."""
+    from scripts.cache import check_cache, resolve_cache_path
+    url = "https://arxiv.org/abs/2401.12345"
+    meta_path = resolve_cache_path("paper-reading", url, "metadata.json", cache_root=str(tmp_path / "cache"))
+    pdf_path = resolve_cache_path("paper-reading", url, "paper.pdf", cache_root=str(tmp_path / "cache"))
+    os.makedirs(os.path.dirname(meta_path), exist_ok=True)
+    with open(meta_path, "w") as f:
+        json.dump({"url": url, "url_hash": "x", "title": "Test", "fetched_at": "2026-01-01T00:00:00Z"}, f)
+    with open(pdf_path, "wb") as f:
+        f.write(b"%PDF")
+    result = check_cache("paper-reading", url, "paper.pdf", cache_root=str(tmp_path / "cache"), ttl_days=7)
+    assert result == pdf_path
+
+
+def test_check_paper_reading_url_mismatch(tmp_path):
+    """check for paper-reading returns None on URL hash collision."""
+    from scripts.cache import check_cache, resolve_cache_path
+    url = "https://arxiv.org/abs/2401.12345"
+    meta_path = resolve_cache_path("paper-reading", url, "metadata.json", cache_root=str(tmp_path / "cache"))
+    pdf_path = resolve_cache_path("paper-reading", url, "paper.pdf", cache_root=str(tmp_path / "cache"))
+    os.makedirs(os.path.dirname(meta_path), exist_ok=True)
+    with open(meta_path, "w") as f:
+        json.dump({"url": "https://different.com/paper", "url_hash": "x", "title": "Test", "fetched_at": "2026-01-01T00:00:00Z"}, f)
+    with open(pdf_path, "wb") as f:
+        f.write(b"%PDF")
+    result = check_cache("paper-reading", url, "paper.pdf", cache_root=str(tmp_path / "cache"), ttl_days=7)
+    assert result is None
+
+
+def test_check_paper_reading_missing_metadata(tmp_path):
+    """check for paper-reading returns None when metadata.json is missing."""
+    from scripts.cache import check_cache, resolve_cache_path
+    url = "https://arxiv.org/abs/2401.12345"
+    pdf_path = resolve_cache_path("paper-reading", url, "paper.pdf", cache_root=str(tmp_path / "cache"))
+    os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
+    with open(pdf_path, "wb") as f:
+        f.write(b"%PDF")
+    result = check_cache("paper-reading", url, "paper.pdf", cache_root=str(tmp_path / "cache"), ttl_days=7)
+    assert result is None
