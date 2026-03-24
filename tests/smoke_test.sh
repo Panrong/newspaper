@@ -3,13 +3,20 @@
 # Requires network access. Not for CI — for manual validation.
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "$0")/.." && pwd)/scripts/sources"
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+SCRIPT_DIR="$ROOT_DIR/scripts/sources"
+PYTHON="${ROOT_DIR}/.venv/bin/python"
+if [ ! -x "$PYTHON" ]; then
+  PYTHON="python3"
+fi
 FAILURES=0
 
 for script in "$SCRIPT_DIR"/*.py; do
   name=$(basename "$script")
+  # Skip __init__.py files
+  [ "$name" = "__init__.py" ] && continue
   echo "Testing $name..."
-  output=$(python3 "$script" 2>&1) || {
+  output=$("$PYTHON" "$script" 2>&1) || {
     echo "  FAIL: $name exited with error"
     echo "  $output"
     FAILURES=$((FAILURES + 1))
