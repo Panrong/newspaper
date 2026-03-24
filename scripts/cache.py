@@ -123,3 +123,105 @@ def write_cache(
             json.dump(meta, f, indent=2)
 
     return path
+
+
+def list_cache(cache_root: str = "cache", ttl_days: int = 7) -> list[dict]:
+    """List all cache entries with age and validity status."""
+    entries = []
+    if not os.path.exists(cache_root):
+        return entries
+
+    for root, dirs, files in os.walk(cache_root):
+        for fname in files:
+            fpath = os.path.join(root, fname)
+            mtime = os.path.getmtime(fpath)
+            age_seconds = time.time() - mtime
+            age_days = age_seconds / 86400
+            rel_path = os.path.relpath(fpath, cache_root)
+            entries.append({
+                "path": rel_path,
+                "age_seconds": age_seconds,
+                "valid": age_days <= ttl_days,
+            })
+    entries.sort(key=lambda e: e["path"])
+    return entries
+
+
+def format_age(seconds: float) -> str:
+    """Format age in human-readable form."""
+    if seconds < 3600:
+        return f"{int(seconds / 60)}m ago"
+    if seconds < 86400:
+        return f"{int(seconds / 3600)}h ago"
+    return f"{int(seconds / 86400)}d ago"
+
+
+def main():
+    """CLI entry point."""
+    if len(sys.argv) < 2:
+        print("Usage: cache.py <command> [args]", file=sys.stderr)
+        print("Commands: check, write, path, list, settings", file=sys.stderr)
+        sys.exit(1)
+
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    cache_root = os.path.join(project_root, "cache")
+    settings = load_settings(project_root)
+    ttl_days = settings["cache_ttl_days"]
+    command = sys.argv[1]
+
+    if command == "settings":
+        print(json.dumps(settings, indent=2))
+
+    elif command == "check":
+        if len(sys.argv) != 5:
+            print("Usage: cache.py check <skill> <key> <filename>", file=sys.stderr)
+            sys.exit(1)
+        skill, key, filename = sys.argv[2], sys.argv[3], sys.argv[4]
+        result = check_cache(skill, key, filename, cache_root=cache_root, ttl_days=ttl_days)
+        if result:
+            print(result)
+            sys.exit(0)
+        else:
+            sys.exit(1)
+
+    elif command == "write":
+        if len(sys.argv) < 5:
+            print("Usage: cache.py write <skill> <key> <filename> [--from-file <path>]", file=sys.stderr)
+            sys.exit(1)
+        skill, key, filename = sys.argv[2], sys.argv[3], sys.argv[4]
+        from_file = None
+        if "--from-file" in sys.argv:
+            idx = sys.argv.index("--from-file")
+            if idx + 1 < len(sys.argv):
+                from_file = sys.argv[idx + 1]
+        if from_file:
+            path = write_cache(skill, key, filename, from_file=from_file, cache_root=cache_root)
+        else:
+            content = sys.stdin.read()
+            path = write_cache(skill, key, filename, content=content, cache_root=cache_root)
+        print(path)
+
+    elif command == "path":
+        if len(sys.argv) != 5:
+            print("Usage: cache.py path <skill> <key> <filename>", file=sys.stderr)
+            sys.exit(1)
+        skill, key, filename = sys.argv[2], sys.argv[3], sys.argv[4]
+        print(resolve_cache_path(skill, key, filename, cache_root=cache_root))
+
+    elif command == "list":
+        entries = list_cache(cache_root=cache_root, ttl_days=ttl_days)
+        if not entries:
+            print("(no cache entries)")
+        else:
+            for e in entries:
+                status = "valid" if e["valid"] else "expired"
+                age = format_age(e["age_seconds"])
+                print(f"  {e['path']:<60s} {age:<10s} {status}")
+
+    else:
+        print(f"Unknown command: {command}", file=sys.stderr)
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

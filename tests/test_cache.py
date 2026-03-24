@@ -214,3 +214,39 @@ def test_write_cache_paper_creates_metadata(tmp_path):
         meta = json.load(f)
     assert meta["url"] == url
     assert "fetched_at" in meta
+
+
+def test_cli_settings(tmp_path):
+    """settings command loads from correct path."""
+    (tmp_path / "settings.json").write_text('{"cache_ttl_days": 14}')
+    from scripts.cache import load_settings
+    settings = load_settings(project_root=str(tmp_path))
+    assert settings["cache_ttl_days"] == 14
+
+
+def test_cli_path_daily_briefing():
+    """CLI 'path' prints the resolved cache path."""
+    from scripts.cache import resolve_cache_path
+    path = resolve_cache_path("daily-briefing", "2026-03-24", "raw/huggingface_papers.json")
+    assert "daily-briefing" in path
+    assert "2026-03-24" in path
+
+
+def test_cli_list_empty(tmp_path):
+    """CLI 'list' on empty cache returns no entries."""
+    from scripts.cache import list_cache
+    entries = list_cache(cache_root=str(tmp_path / "cache"), ttl_days=7)
+    assert entries == []
+
+
+def test_cli_list_with_entries(tmp_path):
+    """CLI 'list' returns entries with age and validity."""
+    from scripts.cache import write_cache, list_cache
+    write_cache(
+        "daily-briefing", "2026-03-24", "raw/huggingface_papers.json",
+        content="[]", cache_root=str(tmp_path / "cache")
+    )
+    entries = list_cache(cache_root=str(tmp_path / "cache"), ttl_days=7)
+    assert len(entries) == 1
+    assert entries[0]["path"].endswith("huggingface_papers.json")
+    assert entries[0]["valid"] is True
