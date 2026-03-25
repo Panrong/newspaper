@@ -5,7 +5,9 @@ description: Use when the user wants a daily news brief, AI paper summary, or as
 
 # Daily Briefing
 
-Produce a daily brief of AI papers and news, filtered by the user's interests and aggregated across sources.
+Produce a daily brief of AI papers and news for a **single date**, filtered by the user's interests and aggregated across sources.
+
+> **Date:** If the user specifies a date, use that. Otherwise default to today's date (YYYY-MM-DD). Let `<date>` refer to this value throughout. Only items published on `<date>` are included.
 
 > **Cache:** This skill uses `scripts/cache.py` to cache intermediate data. If the user asks for fresh data (e.g., "ignore cache", "re-fetch"), skip cache checks and proceed directly to fetching. New data is always written to cache.
 
@@ -43,10 +45,10 @@ python <plugin_root>/scripts/cache.py check daily-briefing <date> raw/<source_na
 ```
 
 - **Exit code 0 (cache hit):** read the file path printed to stdout. Use its contents.
-- **Exit code 1 (cache miss):** run the source script and pipe output to cache:
+- **Exit code 1 (cache miss):** run the source script with `--date` and pipe output to cache:
 
 ```bash
-python <plugin_root>/scripts/sources/<source_name>.py | python <plugin_root>/scripts/cache.py write daily-briefing <date> raw/<source_name>.json
+python <plugin_root>/scripts/sources/<source_name>.py --date <date> | python <plugin_root>/scripts/cache.py write daily-briefing <date> raw/<source_name>.json
 ```
 
 The write command prints the cache file path. Read the cached file to get the data.
@@ -101,7 +103,7 @@ python <plugin_root>/scripts/cache.py check daily-briefing <date> aggregated.jso
 
 **If cache hit:** read the file and check `topics_hash`. If it matches, reuse. Otherwise treat as miss.
 
-**If cache miss:** group items (where `kept: true` in filter decisions) that discuss the same underlying topic, event, or paper across different sources into a single entry. Cite all source URLs. If the same paper appears in both HuggingFace and smol.ai, merge into one entry under Papers.
+**If cache miss:** group items (where `kept: true` in filter decisions) that discuss the same underlying topic, event, or paper across different sources into a single entry. Cite all source URLs. If the same paper appears in both HuggingFace and smol.ai, merge into one entry under Papers. Preserve each item's `item_type` — `"news"` or `"paper"` — so the brief can render them in the correct section.
 
 Write the result to the path returned by:
 
@@ -131,18 +133,22 @@ Use this schema:
 
 ### 5. Generate Brief
 
-Write a structured markdown brief. Items are categorized as either Papers or News based on their `item_type` field. The filtered-out list comes from `filter-decisions.json` (items where `kept: false`):
+Write a structured markdown brief. Items are categorized by their `item_type` field: `"news"` or `"paper"`. The filtered-out list comes from `filter-decisions.json` (items where `kept: false`).
+
+**News items use their original text** — do not summarize or rewrite. Copy the body as-is. Show all URLs from the `urls` field as links. Papers may be synthesized into one-paragraph summaries.
+
+News section comes **before** the Papers section:
 
 ```markdown
 # Daily Brief — YYYY-MM-DD
 
+## News
+- **Title** — original body text, not summarized.
+  Links: [label1](url1), [label2](url2)
+
 ## Papers
 - **Paper Title** — one-paragraph synthesis of the paper's contribution.
   Sources: [HuggingFace](url), [smol.ai](url)
-
-## News
-- **News Headline** — one-paragraph synthesis of the news item.
-  Sources: [smol.ai](url)
 
 ## Filtered out
 - Title 1

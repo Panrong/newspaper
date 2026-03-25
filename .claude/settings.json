@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "newspaper-local": {
+      "source": {
+        "source": "directory",
+        "path": "./"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "newspaper@newspaper-local": true
+  }
+}

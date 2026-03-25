@@ -1,0 +1,14 @@
+{
+  "name": "newspaper-local",
+  "plugins": [
+    {
+      "name": "newspaper",
+      "source": "./",
+      "description": "Daily briefing from AI news sources and paper reading/summarization",
+      "version": "0.1.0"
+    }
+  ],
+  "owner": {
+    "name": "panrong"
+  }
+}

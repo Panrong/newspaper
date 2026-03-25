@@ -163,7 +163,7 @@ def main():
         print("Commands: check, write, path, list, settings", file=sys.stderr)
         sys.exit(1)
 
-    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    project_root = os.getcwd()
     cache_root = os.path.join(project_root, "cache")
     settings = load_settings(project_root)
     ttl_days = settings["cache_ttl_days"]

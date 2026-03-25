@@ -2,7 +2,7 @@
   "name": "newspaper",
   "description": "Daily briefing from AI news sources and paper reading/summarization",
   "version": "0.1.0",
-  "author": "panrong",
+  "author": { "name": "panrong" },
   "license": "MIT",
   "keywords": ["news", "papers", "briefing", "arxiv", "huggingface"]
 }

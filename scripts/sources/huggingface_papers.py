@@ -3,7 +3,12 @@
 
 Outputs a JSON array to stdout with the source script interface schema:
   [{title, body, url, source_name, date, item_type}]
+
+Usage:
+  python huggingface_papers.py                # papers from today
+  python huggingface_papers.py --date 2026-03-24  # papers from a specific date
 """
+import argparse
 import json
 import sys
 from datetime import datetime
@@ -61,9 +66,17 @@ def fetch_papers() -> list[dict]:
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Fetch HuggingFace Daily Papers")
+    parser.add_argument(
+        "--date",
+        default=datetime.now().strftime("%Y-%m-%d"),
+        help="Target date in YYYY-MM-DD format (default: today)",
+    )
+    args = parser.parse_args()
     try:
         papers = fetch_papers()
-        print(json.dumps(papers, ensure_ascii=False, indent=2))
+        filtered = [p for p in papers if p["date"] == args.date]
+        print(json.dumps(filtered, ensure_ascii=False, indent=2))
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
