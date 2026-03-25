@@ -14,6 +14,7 @@ Download and read an academic paper, then summarize it or answer questions about
 ### 1. Get the Paper URL
 
 The user provides a paper URL. Supported sources:
+
 - arXiv (`arxiv.org/abs/...`)
 - OpenReview (`openreview.net/forum?id=...`)
 - HuggingFace Papers (`huggingface.co/papers/...`)
@@ -25,20 +26,20 @@ The user provides a paper URL. Supported sources:
 Check the cache for an existing download:
 
 ```bash
-python <plugin_root>/scripts/cache.py check paper-reading "<url>" paper.pdf
+python3 <plugin_root>/scripts/cache.py check paper-reading "<url>" paper.pdf
 ```
 
 - **Exit code 0 (cache hit):** the printed path is the cached PDF. Use it directly.
 - **Exit code 1 (cache miss):** download the PDF, then cache it:
 
 ```bash
-python <plugin_root>/scripts/resolve_and_download.py "<url>"
+python3 <plugin_root>/scripts/resolve_and_download.py "<url>"
 ```
 
 The script prints a temp file path. Cache the downloaded file:
 
 ```bash
-python <plugin_root>/scripts/cache.py write paper-reading "<url>" paper.pdf --from-file <temp_file_path>
+python3 <plugin_root>/scripts/cache.py write paper-reading "<url>" paper.pdf --from-file <temp_file_path>
 ```
 
 The write command prints the cache path. Use this path for reading.
@@ -52,7 +53,7 @@ Use the Read tool on the PDF file path (either cached or newly downloaded). For 
 **If no question was provided**, check for a cached summary:
 
 ```bash
-python <plugin_root>/scripts/cache.py check paper-reading "<url>" summary.md
+python3 <plugin_root>/scripts/cache.py check paper-reading "<url>" summary.md
 ```
 
 - **Cache hit:** read and return the cached summary.
@@ -81,7 +82,7 @@ What the authors acknowledge or what's missing.
 Write the summary to cache using the Write tool at the path returned by:
 
 ```bash
-python <plugin_root>/scripts/cache.py path paper-reading "<url>" summary.md
+python3 <plugin_root>/scripts/cache.py path paper-reading "<url>" summary.md
 ```
 
 **If a question was provided**, answer it grounded in the paper's content. Cite specific sections, figures, or tables where relevant. If the paper does not contain information to answer the question, say so. Do NOT write Q&A responses to `summary.md` — only default summaries are cached.

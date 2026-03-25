@@ -26,3 +26,5 @@ venv/
 # Project
 cache/
 briefs/
+.superset/
+.claude/settings.local.json

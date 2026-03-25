@@ -41,14 +41,14 @@ Let `<date>` be today's date in YYYY-MM-DD format.
 For each source script in `scripts/sources/`, check the cache before running:
 
 ```bash
-python <plugin_root>/scripts/cache.py check daily-briefing <date> raw/<source_name>.json
+python3 <plugin_root>/scripts/cache.py check daily-briefing <date> raw/<source_name>.json
 ```
 
 - **Exit code 0 (cache hit):** read the file path printed to stdout. Use its contents.
 - **Exit code 1 (cache miss):** run the source script with `--date` and pipe output to cache:
 
 ```bash
-python <plugin_root>/scripts/sources/<source_name>.py --date <date> | python <plugin_root>/scripts/cache.py write daily-briefing <date> raw/<source_name>.json
+python3 <plugin_root>/scripts/sources/<source_name>.py --date <date> | python3 <plugin_root>/scripts/cache.py write daily-briefing <date> raw/<source_name>.json
 ```
 
 The write command prints the cache file path. Read the cached file to get the data.
@@ -60,7 +60,7 @@ Each source is checked independently — one can be cached while the other re-fe
 Check the cache for existing filter decisions:
 
 ```bash
-python <plugin_root>/scripts/cache.py check daily-briefing <date> filter-decisions.json
+python3 <plugin_root>/scripts/cache.py check daily-briefing <date> filter-decisions.json
 ```
 
 **If cache hit:** read the file and check the `topics_hash` field. If it matches the current topics hash, reuse the decisions. If it does not match, treat as a cache miss.
@@ -70,7 +70,7 @@ python <plugin_root>/scripts/cache.py check daily-briefing <date> filter-decisio
 Write the result as JSON via the Write tool to the path returned by:
 
 ```bash
-python <plugin_root>/scripts/cache.py path daily-briefing <date> filter-decisions.json
+python3 <plugin_root>/scripts/cache.py path daily-briefing <date> filter-decisions.json
 ```
 
 Use this schema:
@@ -98,7 +98,7 @@ Use this schema:
 Check the cache:
 
 ```bash
-python <plugin_root>/scripts/cache.py check daily-briefing <date> aggregated.json
+python3 <plugin_root>/scripts/cache.py check daily-briefing <date> aggregated.json
 ```
 
 **If cache hit:** read the file and check `topics_hash`. If it matches, reuse. Otherwise treat as miss.
@@ -108,7 +108,7 @@ python <plugin_root>/scripts/cache.py check daily-briefing <date> aggregated.jso
 Write the result to the path returned by:
 
 ```bash
-python <plugin_root>/scripts/cache.py path daily-briefing <date> aggregated.json
+python3 <plugin_root>/scripts/cache.py path daily-briefing <date> aggregated.json
 ```
 
 Use this schema:
